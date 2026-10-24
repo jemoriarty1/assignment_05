@@ -5,6 +5,7 @@ from .history import add_clean_columns, add_date_parts, combine_exports
 
 
 def format_name(names: pd.Series) -> pd.Series:
+    """Turn HR's `"Last, First"` into `"First Last"`, for a whole Series."""
     parts = names.str.split(",")
     last = parts.str[0].str.strip()
     first = parts.str[1].str.strip()
@@ -12,6 +13,7 @@ def format_name(names: pd.Series) -> pd.Series:
 
 
 def add_roster(history: pd.DataFrame, employees: pd.DataFrame) -> pd.DataFrame:
+    """Return the history with two roster columns added: display_name, department."""
     roster = employees.copy()
     roster["display_name"] = format_name(roster["name"])
     roster = roster[["employee_id", "display_name", "department"]]
@@ -19,6 +21,7 @@ def add_roster(history: pd.DataFrame, employees: pd.DataFrame) -> pd.DataFrame:
 
 
 def build_history(exports: list, employees: pd.DataFrame) -> pd.DataFrame:
+    """Raw exports and roster in; the finished quarter history out."""
     combined = combine_exports(exports)
     cleaned = add_clean_columns(combined)
     dated = add_date_parts(cleaned)
@@ -26,6 +29,7 @@ def build_history(exports: list, employees: pd.DataFrame) -> pd.DataFrame:
 
 
 def summarize_employees(history: pd.DataFrame) -> pd.DataFrame:
+    """One row per employee: how many weeks, how many hours, how much pay."""
     summary = (
         history.groupby(["employee_id", "display_name", "department"])
         .agg(

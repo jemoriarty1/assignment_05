@@ -2,6 +2,7 @@ import pandas as pd
 
 
 def hours_grid(history: pd.DataFrame) -> pd.DataFrame:
+    """Employees down the side, weeks across the top, hours in the cells."""
     grid = history.pivot_table(
         index=["employee_id", "display_name"],
         columns="week_ending",
@@ -14,6 +15,7 @@ def hours_grid(history: pd.DataFrame) -> pd.DataFrame:
 
 
 def missed_weeks(grid: pd.DataFrame) -> pd.DataFrame:
+    """Every (employee, week) with zero hours in the grid — the weeks people missed."""
     long = grid.melt(
         id_vars=["employee_id", "display_name"],
         var_name="week_ending",
@@ -24,6 +26,7 @@ def missed_weeks(grid: pd.DataFrame) -> pd.DataFrame:
 
 
 def pay_by_month(history: pd.DataFrame) -> pd.DataFrame:
+    """Total gross pay by month (rows) and department (columns), to the cent."""
     monthly = history.pivot_table(
         index="month",
         columns="department",
