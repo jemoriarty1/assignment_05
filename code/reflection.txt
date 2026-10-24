@@ -1,7 +1,5 @@
-Write your reflection here.
-
-See reflection.md for what makes a good reflection — be specific, use the
-terminology from this assignment (grain, long vs. wide, vectorized .str methods,
-coerce, NaT, pd.to_datetime format, .dt, concat, ignore_index, group by, named
-aggregation, reset_index, pivot_table, fill_value, melt, lineage), and make it
-actionable.
+What I learned during this assignment was about how the pivot-then-melt round trip can create 
+rows that never existed in the source data. What I struggled with during this assignment was 
+that I kept forgetting that the group by keys go into the index, so I needed reset_index to 
+get employee_id, display_name and department back as columns. I plan to practice writing one 
+sentence saying the grain of the input and the grain of the output.
