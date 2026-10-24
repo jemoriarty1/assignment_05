@@ -27,7 +27,8 @@ def parse_pay_date(values: pd.Series) -> pd.Series:
 
 
 def combine_exports(exports: list) -> pd.DataFrame:
-    """Stack a list of weekly exports into one DataFrame — one row per person per week."""
+    """Stack a list of weekly exports into one DataFrame — one row per person per week.
+    """
     return pd.concat(exports, ignore_index=True)
 
 
